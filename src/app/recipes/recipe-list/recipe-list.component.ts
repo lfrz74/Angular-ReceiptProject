@@ -34,6 +34,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe(); //Avoiding memory leaks
+    this.subscription.unsubscribe(); //Avoiding memory leaks. Ok it's done
   }
 }
