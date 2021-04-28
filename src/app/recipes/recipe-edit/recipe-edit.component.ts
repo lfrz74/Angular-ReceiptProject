@@ -7,6 +7,7 @@ import {
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { RecipeService } from '../recipe.service';
+import { DataStorageService } from '../../shared/data-storage.service';
 @Component({
   selector: 'app-recipe-edit',
   templateUrl: './recipe-edit.component.html',
@@ -19,7 +20,8 @@ export class RecipeEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private recipeService: RecipeService,
-              private router: Router) { }
+              private router: Router,
+              private dataStorageService: DataStorageService) { }
 
   ngOnInit(): void {
     this.route.params
@@ -60,14 +62,17 @@ export class RecipeEditComponent implements OnInit {
   onCancel() {
     this.router.navigate(['../'], {relativeTo: this.route});
   }
+
   private initForm() {
     let recipeName = '';
     let recipeImagePath = '';
     let recipeDescription = '';
     let recipeIngredients = new FormArray([]);
 
-    if (this.editMode) {
-      const recipe = this.recipeService.getRecipe(this.id);
+    const recipe = this.recipeService.getRecipe(this.id);
+
+    if (this.editMode && recipe) {
+      
       recipeName = recipe.name;
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
@@ -84,6 +89,8 @@ export class RecipeEditComponent implements OnInit {
           );
         }
       }
+    } else {
+      this.router.navigate(['/recipes']);
     }
 
     this.recipeForm = new FormGroup({
