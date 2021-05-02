@@ -5,7 +5,7 @@ import { BehaviorSubject, throwError  } from 'rxjs';
 import { Router } from "@angular/router";
 
 import { User } from "./user.model";
-import { environment } from "src/environments/environment";
+import { environment } from "../../environments/environment";
 
 export interface AuthResponseData {
     idToken: string;
